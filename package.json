@@ -1,0 +1,48 @@
+{
+  "name": "ja5mine-5ervice",
+  "version": "1.0.0",
+  "description": "replica of airbnb's review module service on a listing page",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack -d --watch",
+    "start": "nodemon --ignore node_modules server",
+    "seed": "node ../Ja5mine-5ervice/data/reviews.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/5uper5quad/Ja5mine-5ervice.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/5uper5quad/Ja5mine-5ervice/issues"
+  },
+  "homepage": "https://github.com/5uper5quad/Ja5mine-5ervice#readme",
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.13.0",
+    "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
+    "jest": "^24.8.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.0",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
+  },
+  "dependencies": {
+    "bluebird": "^3.5.4",
+    "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
+    "express": "^4.16.4",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.11",
+    "mongodb": "^3.2.4",
+    "mongoose": "^5.5.8",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "styled-components": "^4.2.0"
+  }
+}
