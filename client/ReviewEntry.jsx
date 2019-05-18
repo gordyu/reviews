@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
+var faker = require('faker');
 
 var ReviewEntry = ({review}) => {
     return (
       <div className="reviewContainer">
-        <div className="profileImage">{ review.imagePath }</div>
+        <img className="profileImage" src={faker.image.avatar()}  height="42" width="42" />
         <div className="userName">{ review.name }</div>
-        <div className="postDate">{ review.postDate }</div>
+        <div className="postDate">{ faker.date.month() } { review.postDate }</div>
         <div className="reviewDescription">{ review.review }</div>
       </div>
     )
