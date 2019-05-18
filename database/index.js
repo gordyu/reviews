@@ -7,7 +7,7 @@ let reviewSchema = mongoose.Schema({
   id: {type: Number, required: true, unique: true},
   imagePath: {type: String, required: true},
   name: {type: String, required: true},
-  postDate: {type: Date, required: true},
+  postDate: {type: Number, required: true},
   review: {type: String, required: true},
 });
 

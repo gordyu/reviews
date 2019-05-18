@@ -32,7 +32,7 @@ let storageArr = [];
       id: i,
       imagePath: 'placeholder',
       name: randomName(),
-      postDate: new Date(),
+      postDate: 2019,
       review: randomReview()
     }));
 };
