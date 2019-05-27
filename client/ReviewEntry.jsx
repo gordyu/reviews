@@ -17,9 +17,8 @@ var ReviewEntry = ({review}) => {
 }
 
 const Wrapper = styled.div`
-  padding: 20px;
-  margin-right: 20px;
-  margin-left: 35px;
+  border-bottom: 1px;
+  border-bottom-color: #E8E8E8;
 `;
 
 const Review = styled.h4`
