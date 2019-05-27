@@ -5,33 +5,32 @@ import styled from 'styled-components';
 
 var ReviewStars = ({reviews}) => {
   return (
-    <div className="reviewStars">
-      <ReviewTitle>
-      {reviews.length} Reviews
-      </ReviewTitle>
+    <ReviewStarsContainer>
+      <RatingStars> Accuracy </RatingStars>
+      <RatingStars> Communication </RatingStars>
+      <RatingStars> Cleanliness </RatingStars>
+      <RatingStars> Location </RatingStars>
+      <RatingStars> Check-In </RatingStars>
+      <RatingStars> Value </RatingStars>
       <br />
-      <form>
-        <input type="text" name="SearchReviews" placeholder="Search reviews" />
-      </form>
-      <br />
-      <Review> Accuracy </Review>
-      <Review> Communication </Review>
-      <Review> Cleanliness </Review>
-      <Review> Location </Review>
-      <Review> Value </Review>
-      <br />
-    </div>
+    </ReviewStarsContainer>
   );
 };
-
-const Review = styled.h4`
+//parent
+const ReviewStarsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  height: 105px;
+  align-content: center;
+  justify-content: space-between;
+  flex-direction: column;
+`;
+//child
+const RatingStars = styled.div`
+  padding: 5px;
   font-family: 'Nunito Sans', sans-serif;
 `;
 
-const ReviewTitle = styled.h2`
-  font-family: 'Nunito Sans', sans-serif;
-  font-weight: bold;
-`;
 // ReviewStars.PropTypes = {
 //   reviews: review.PropTypes.object.isRequired
 // }
