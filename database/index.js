@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb://localhost/fetcher', { useNewUrlParser: true })
         .then(() => console.log('MongoDB connected...'))
         .catch(err => console.log('error'));
-
+        
 let reviewSchema = mongoose.Schema({
   id: {type: Number, required: true, unique: true},
   imagePath: {type: String, required: true},

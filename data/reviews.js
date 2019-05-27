@@ -27,7 +27,7 @@ let randomName = function(){
 
 let storageArr = [];
 //create array of messages data
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 20; i++) {
     storageArr.push(new db.Review({
       id: i,
       imagePath: 'placeholder',
