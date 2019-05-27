@@ -11,7 +11,6 @@ var ReviewList = ({reviews}) => {
         reviews.map(review => {
         return <ReviewEntry review={ review } key={ review.id }/>
       }) }
-      {console.log(reviews)}
     </div>
   );
 };
