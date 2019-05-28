@@ -5,12 +5,15 @@ import ReviewList from './ReviewList';
 import ReviewStars from './ReviewStars';
 import PaginationComponent from './Pagination';
 import styled from 'styled-components';
+import { EventEmitter } from 'events';
 
 
 const resultsPerPage = 5; // how many results I’ll display
 const pageCount = Math.ceil(20 / resultsPerPage); // quantity of pages
 const total = 20; // total number of values
 const limit = 5;
+
+//add review stars with a rating star library?
 
 class App extends React.Component {
   constructor(props) {
@@ -23,6 +26,7 @@ class App extends React.Component {
         results: []
       }
     }
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount () {
@@ -37,6 +41,19 @@ class App extends React.Component {
     });
   };
 
+  handleSearch (event) {
+    if(event.keyCode == 13) {
+      event.preventDefault();
+      var query = event.target.value;
+      console.log('value', event.target.value);
+      console.log(this.state.reviews);
+      let reviews = this.state.reviews.filter((comment) => {
+        return comment.review.includes(query);
+      })
+      this.setState({reviews: reviews});
+    }
+  }
+
   render () {
     const { currentPage } = this.state; // a state variable that tracks which page the user is on.
     return (
@@ -46,13 +63,13 @@ class App extends React.Component {
           <ReviewTitle>
           {this.state.reviews.length} Reviews
           </ReviewTitle>
-          <MagnifyingGlass>
+          {/* <MagnifyingGlass>
           <span className="iconify" data-icon="mdi-light:magnify" data-inline="false"></span>
-          </MagnifyingGlass>
+          </MagnifyingGlass> */}
 
           <FormContainer>
             <form>
-              <Input type="text" name="SearchReviews" placeholder="Search reviews"/>
+              <Input type="text" name="SearchReviews" placeholder="Search reviews" onKeyDown={this.handleSearch}/>
             </form>
           </FormContainer>
         </TopContainer>
@@ -76,16 +93,23 @@ class App extends React.Component {
 };
 
 const BodyContainer = styled.div`
-  max-width: 100%;
+  max-width: 50%;
   display: flex;
   margin: 0 250px;
   flex-direction: column;
+  padding: 22px 0;
 `
 
 //Top container has the Review Stars and search bar including the magnifying glass image
 const TopContainer = styled.div`
   display: flex;
   height: 73px;
+  border-bottom: solid;
+  border-bottom-color: #E8E8E8;
+  border-bottom-width: 0.5px;
+  border-top: solid;
+  border-top-color: #E8E8E8;
+  border-top-width: 0.5px;
 `;
 
 const FormContainer = styled.div`
