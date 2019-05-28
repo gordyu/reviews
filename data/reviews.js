@@ -10,7 +10,29 @@ const randomElement = function(array) {
   return array[randomIndex];
 }
 //create random username
-const names = ['Linda', 'Bob', 'Maira', 'Jade', 'Gloria', 'Joan', 'Mike', 'Jessie', 'Taylor', 'Ronald', 'Tiffany', 'Leon', 'Johanna', 'Leslie', 'Courtney', 'Scott', 'Jerry', 'Edmundo', 'Zachary', 'Alfred', 'Cam', 'Sarkis', 'Robin', 'Cody', 'Hailey', 'Kyle', 'Chris'];
+const names = [
+    'Linda',
+    'Bob',
+    'Maira',
+    'Jade',
+    'Gloria',
+    'Joan',
+    'Mike',
+    'Taylor',
+    'Tiffany',
+    'Leslie',
+    'Courtney',
+    'Scott',
+    'Jerry',
+    'Zachary',
+    'Alfred',
+    'Cam',
+    'Sarkis',
+    'Robin',
+    'Cody',
+    'Hailey',
+    'Kyle',
+  ];
 
 //way to create randomly generated reviews
 const opening = ['A beautiful and spectacular location with', 'Perfect sunny villa in spain with', 'Abysmal looking inside and out but', 'A dreadful experience through and through with', 'Disgusting and dreadful appliances with', 'Wonderful and went above and beyond my expectations including a', 'Fantastic and would highly recommend staying here', 'Great and interesting location with plenty of things nearby to explore', 'Our stay was great and', 'Modern and contemporary furnishings with a', 'Comfortable and spacious rooms and', 'Spectacular patio view and friendly host and'];
@@ -37,6 +59,7 @@ let storageArr = [];
     }));
 };
 
+//deletes all reviews from the database and re-inserts new ones
 db.Review.deleteMany({}, (err) => {
   if (err) {
     console.log(err);
