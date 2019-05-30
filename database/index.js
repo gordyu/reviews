@@ -10,6 +10,12 @@ let reviewSchema = mongoose.Schema({
   name: {type: String, required: true},
   postDate: {type: Number, required: true},
   review: {type: String, required: true},
+  accuracyRating: {type: Number, required: true},
+  communicationRating: {type: Number, required: true},
+  cleanlinessRating: {type: Number, required: true},
+  locationRating: {type: Number, required: true},
+  checkinRating: {type: Number, required: true},
+  valueRating: {type: Number, required: true}
 });
 
 let Review = mongoose.model('Review', reviewSchema);

@@ -57,11 +57,13 @@ const NameAndDateContainer = styled.div`
 
 const Review = styled.div`
   font-family: 'Nunito Sans', sans-serif;
+  color: #404040;
 `;
 
 const UserNameContainer = styled.div`
   font-family: 'Nunito Sans', sans-serif;
   font-weight: bold;
+  color: #404040;
 `;
 
 // const UserName = styled.h4`
@@ -71,6 +73,8 @@ const UserNameContainer = styled.div`
 
 const PostDate = styled.div`
   font-family: 'Nunito Sans', sans-serif;
+  font-size: 14px;
+  color: #404040;
 `;
 
 // ReviewEntry.PropTypes = {
