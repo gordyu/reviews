@@ -6,7 +6,8 @@ import ReviewStars from './ReviewStars';
 import PaginationComponent from './Pagination';
 import styled from 'styled-components';
 import { EventEmitter } from 'events';
-
+import StarRatings from 'react-star-ratings';
+import totalReviewAverage from '../data/totalReviewAverage';
 
 const resultsPerPage = 5; // how many results I’ll display
 const pageCount = Math.ceil(20 / resultsPerPage); // quantity of pages
@@ -62,7 +63,19 @@ class App extends React.Component {
         <TopContainer>
           <ReviewTitle>
           {this.state.reviews.length} Reviews
+          {console.log(totalReviewAverage(this.state.reviews))}
           </ReviewTitle>
+          <MainReviewStarContainer>
+          <StarRatings
+              rating={totalReviewAverage(this.state.reviews)}
+              starRatedColor='rgb(0, 125, 140)'
+              numberOfStars={5}
+              name='rating'
+              starDimension='22px'
+              starSpacing='3px'
+              isAggregateRating='true'
+            />
+          </MainReviewStarContainer>
           {/* <MagnifyingGlass>
           <span className="iconify" data-icon="mdi-light:magnify" data-inline="false"></span>
           </MagnifyingGlass> */}
@@ -93,11 +106,11 @@ class App extends React.Component {
 };
 
 const BodyContainer = styled.div`
-  max-width: 50%;
+  max-width: 40%;
   display: flex;
-  margin: 0 250px;
+  margin: 0 235px;
   flex-direction: column;
-  padding: 22px 0;
+  padding: 22px;
 `
 
 //Top container has the Review Stars and search bar including the magnifying glass image
@@ -129,6 +142,11 @@ const ReviewTitle = styled.div`
 const MagnifyingGlass = styled.div`
 `;
 
+const MainReviewStarContainer = styled.div`
+  margin: 27px 15px;
+  height: 15px;
+`;
+
 const Input = styled.input`
   display: flex;
   padding: 8px;
@@ -149,4 +167,4 @@ const Input = styled.input`
 
 
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('reviews'));
