@@ -3,6 +3,7 @@ var reviewAverages = function (reviewsList) {
   if (reviewsList === [] || reviewsList.length < 1 || reviewsList === undefined) {
     return 0;
   }
+  
   var reviewAverages = {
     accuracy: 0,
     communication: 0,

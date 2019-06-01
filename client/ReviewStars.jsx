@@ -3,10 +3,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import styled from 'styled-components';
 import StarRatings from 'react-star-ratings';
-import reviewAverages from '../data/reviewAverages';
 
 
 var ReviewStars = ({reviews}) => {
+  
   return (
   <ReviewStarsContainer>
 
@@ -23,7 +23,7 @@ var ReviewStars = ({reviews}) => {
 
       <RatingContainer>
         <StarRatings
-          rating={reviewAverages(reviews).cleanliness}
+          rating={reviews.cleanliness}
           starRatedColor='rgb(0, 125, 140)'
           numberOfStars={5}
           name='rating'
@@ -34,7 +34,7 @@ var ReviewStars = ({reviews}) => {
       </RatingContainer>
       <RatingContainer>
         <StarRatings
-            rating={reviewAverages(reviews).communication}
+            rating={reviews.communication}
             starRatedColor='rgb(0, 125, 140)'
             numberOfStars={5}
             name='rating'
@@ -45,7 +45,7 @@ var ReviewStars = ({reviews}) => {
       </RatingContainer>
       <RatingContainer>
         <StarRatings
-            rating={reviewAverages(reviews).accuracy}
+            rating={reviews.accuracy}
             starRatedColor='rgb(0, 125, 140)'
             numberOfStars={5}
             name='rating'
@@ -68,7 +68,7 @@ var ReviewStars = ({reviews}) => {
       </RatingStars>
         <RatingContainer>
           <StarRatings
-              rating={reviewAverages(reviews).location}
+              rating={reviews.location}
               starRatedColor='rgb(0, 125, 140)'
               numberOfStars={5}
               name='rating'
@@ -79,7 +79,7 @@ var ReviewStars = ({reviews}) => {
         </RatingContainer>
         <RatingContainer>
           <StarRatings
-              rating={reviewAverages(reviews).checkin}
+              rating={reviews.checkin}
               starRatedColor='rgb(0, 125, 140)'
               numberOfStars={5}
               name='rating'
@@ -90,7 +90,7 @@ var ReviewStars = ({reviews}) => {
         </RatingContainer>
         <RatingContainer>
           <StarRatings
-              rating={reviewAverages(reviews).value}
+              rating={reviews.value}
               starRatedColor='rgb(0, 125, 140)'
               numberOfStars={5}
               name='rating'

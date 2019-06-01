@@ -54,6 +54,16 @@ const nouns = [
   'bedroom',
   'garage',
   'bathtub',
+  'red keep',
+  'throne room',
+  'iron throne',
+  'crawl space',
+  'attic',
+  'shed',
+  'dungeon',
+  'sky door',
+  'childrens room',
+  'weirwood tree',
   'living-room space',
   'infinity pool',
   'hot-tub',
@@ -64,15 +74,18 @@ const nouns = [
   'closet',
   'shower',
   'garbage can',
-  'garbage disposal'
 ];
+
 const objects = [
   'well-lit',
   'inviting',
-  'and majestic',
+  'majestic',
   'interesting looking',
   'quiet',
   'memorable',
+  'exciting',
+  'giant',
+  'inspiring',
   'indescribable',
   'picture perfect',
   'and best ever',
@@ -110,7 +123,7 @@ let randomRating = function () {
 
 let storageArr = [];
 //create array of messages data
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < 12; i++) {
     storageArr.push(new db.Review({
       id: i,
       imagePath: 'placeholder',
