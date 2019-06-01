@@ -61,9 +61,11 @@ const Review = styled.div`
 `;
 
 const UserNameContainer = styled.div`
-  font-family: 'Nunito Sans', sans-serif;
-  font-weight: bold;
+font-family: 'MontrealRegular';
+  font-weight: normal;
+  font-style: normal;
   color: #404040;
+  font-size: 16px;
 `;
 
 // const UserName = styled.h4`
