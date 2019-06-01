@@ -1,11 +1,13 @@
 const express = require('express');
 let app = express();
 const db = require('../database/index');
+var cors = require('cors')
+
 
 let bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public'));
-
+app.use(cors());
 
 //get request to pull all of the review data onto the page 
 app.get('/reviews', function(req, res) {
