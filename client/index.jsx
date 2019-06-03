@@ -100,7 +100,7 @@ class App extends React.Component {
             <SearchWord> 
               "{this.state.query}" 
             </SearchWord>
-            <Link href="http://localhost:3003"> Back to all reviews </Link> 
+            <Link href="http://localhost:3000"> Back to all reviews </Link> 
           </ReviewSearchContainer> : null
         }
         </div>
