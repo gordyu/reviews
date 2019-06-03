@@ -112,11 +112,11 @@ class App extends React.Component {
 };
 
 const BodyContainer = styled.div`
-  max-width: 40%;
   display: flex;
-  margin: 0 235px;
   flex-direction: column;
-  padding: 22px;
+  padding: 10px;
+  max-width: 591px;
+  margin-right: 40px;
 `
 
 //Top container has the Review Stars and search bar including the magnifying glass image
