@@ -34,6 +34,7 @@ class App extends React.Component {
       reviewsTotal: [],
     };
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   };
 
   componentDidMount () {
@@ -59,6 +60,11 @@ class App extends React.Component {
       this.setState({reviews: reviews, querySubmitted: true, query: query});
     }
   };
+
+
+  handleClick() {
+    this.setState({reviews: this.state.reviewsTotal, querySubmitted: false})
+  }
 
   render () {
     return (
@@ -100,7 +106,7 @@ class App extends React.Component {
             <SearchWord> 
               "{this.state.query}" 
             </SearchWord>
-            <Link href="http://localhost:3000"> Back to all reviews </Link> 
+            <Link onClick={this.handleClick} style={{cursor: 'pointer'}}>Back to all reviews</Link> 
           </ReviewSearchContainer> : null
         }
         </div>
