@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/../public'));
 app.use(cors());
 
-//get request to pull all of the review data onto the page 
+//get request to pull all of the review data onto the page
 app.get('/reviews', function(req, res) {
   db.Review.find({}, (err, result) => {
     if (err) {
@@ -20,9 +20,12 @@ app.get('/reviews', function(req, res) {
   })
   .catch(err => {
     console.error("error ", err);
-    res.status(400).json({err});  
-  }); 
+    res.status(400).json({err});
+  });
 });
+
+
+
 
 
 let port = 3003;
