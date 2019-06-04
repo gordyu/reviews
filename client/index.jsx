@@ -9,18 +9,10 @@ import StarRatings from 'react-star-ratings';
 import totalReviewAverage from '../data/totalReviewAverage';
 import reviewAverages from '../data/reviewAverages';
 
-import Typography from '@material-ui/core/Typography';
-import { Icon, InlineIcon } from '@iconify/react';
-import baselineChevronRight from '@iconify/react/ic/baseline-chevron-right';
-import twotoneChevronLeft from '@iconify/react/ic/twotone-chevron-left';
-import ReactPaginate from 'react-paginate';
-
 
 const resultsPerPage = 5; // how many results I’ll display
 const pageCount = Math.ceil(26 / resultsPerPage); // quantity of pages
 const total = 26; // total number of values
-
-//add review stars with a rating star library?
 
 class App extends React.Component {
   constructor(props) {
@@ -32,9 +24,11 @@ class App extends React.Component {
       querySubmitted: false,
       query: '',
       reviewsTotal: [],
+      addReview: false,
     };
     this.handleSearch = this.handleSearch.bind(this);
     this.handleClick = this.handleClick.bind(this);
+
   };
 
   componentDidMount () {
@@ -62,6 +56,16 @@ class App extends React.Component {
   };
 
 
+   handleDelete(id) {
+
+     fetch('http://localhost:3003/reviews/:id', {
+    method: 'DELETE',
+    body: JSON.stringify({_id: id})
+     })
+    // .then(res => res)
+    // .then(res => console.log(res))
+  }
+
   handleClick() {
     this.setState({reviews: this.state.reviewsTotal, querySubmitted: false})
   }
@@ -85,11 +89,6 @@ class App extends React.Component {
               isAggregateRating='true'
             />
           </MainReviewStarContainer>
-
-          {/* <MagnifyingGlass>
-          <span className="iconify" data-icon="mdi-light:magnify" data-inline="false"></span>
-          </MagnifyingGlass> */}
-
           <FormContainer>
             <form>
               <Input type="text" name="SearchReviews" placeholder="Search reviews" onKeyDown={this.handleSearch}/>
@@ -111,7 +110,7 @@ class App extends React.Component {
           </ReviewSearchContainer> : null
         }
         </div>
-        <AddButtonContainer>
+        <AddReviewContainer>
             <button className='add-button' style={{
               borderColor: 'black',
               cursor: 'pointer',
@@ -121,9 +120,9 @@ class App extends React.Component {
               borderRadius: '6px',
               fontSize: '16px',
               borderWidth: '2px',
-            }} onClick={(e)=>{e.preventDefault(); style={backgroundColor: 'black'}}} >Add Review</button>
-          </AddButtonContainer>
-        <ReviewList reviews={this.state.reviews} />
+            }} >Add Review</button>
+          </AddReviewContainer>
+        <ReviewList reviews={this.state.reviews} delete={this.handleDelete.bind(this)} />
 
       </BodyContainer>
     )
@@ -134,7 +133,7 @@ class App extends React.Component {
 //   background-color: red;
 // `
 
-const AddButtonContainer = styled.div`
+const AddReviewContainer = styled.div`
   margin-left: auto;
 `;
 

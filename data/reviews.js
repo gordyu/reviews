@@ -1,9 +1,9 @@
 var db = require('../database/index');
 const mongoose = require('mongoose');
 
-/* 
+/*
 seed database in this file
-utilize the insertMany mongodb method 
+utilize the insertMany mongodb method
 */
 const randomElement = function(array) {
   let randomIndex = Math.floor(Math.random() * array.length);
@@ -36,7 +36,7 @@ const names = [
 
 //way to create randomly generated reviews
 const opening = [
-  'A beautiful and spectacular location with', 
+  'A beautiful and spectacular location with',
   'Perfect sunny villa in spain with',
   'Abysmal looking inside and out but',
   'A dreadful experience through and through with',
@@ -149,7 +149,7 @@ db.Review.deleteMany({}, (err) => {
       if (err) {
         console.log(err);
       } else {
-        console.log('database seeded!') 
+        console.log('database seeded!')
         db.Review.find({}, (err, result) => {
           if (err) {
             console.log(err);

@@ -4,12 +4,16 @@ import ReactDOM from 'react-dom';
 import ReviewEntry from './ReviewEntry';
 import styled from 'styled-components';
 
-var ReviewList = ({reviews}) => { 
+var ReviewList = (props) => {
+
   return (
+
     <ReviewContainer>
+
       {
-        reviews.map(review => {
-          return <ReviewEntry review={ review } key={ review.id }/>
+
+        props.reviews.map(review => {
+          return <ReviewEntry review={ review } key={ review.id } delete={props.delete.bind(this)}/>
         })
       }
     </ReviewContainer>
