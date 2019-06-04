@@ -25,7 +25,7 @@ const total = 26; // total number of values
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       reviews: [],
       data: [],
       offset: 0,
@@ -69,7 +69,7 @@ class App extends React.Component {
   render () {
     return (
       <BodyContainer>
-  
+
         <TopContainer>
           <ReviewTitle>
           {this.state.reviewsTotal.length} Reviews
@@ -85,6 +85,7 @@ class App extends React.Component {
               isAggregateRating='true'
             />
           </MainReviewStarContainer>
+
           {/* <MagnifyingGlass>
           <span className="iconify" data-icon="mdi-light:magnify" data-inline="false"></span>
           </MagnifyingGlass> */}
@@ -99,23 +100,44 @@ class App extends React.Component {
         <div>
         { this.state.querySubmitted ?
           <ReviewSearchContainer>
-            <ReviewSearchReturn> 
-            {this.state.reviews.length} guests have mentioned 
+            <ReviewSearchReturn>
+            {this.state.reviews.length} guests have mentioned
             </ReviewSearchReturn>
 
-            <SearchWord> 
-              "{this.state.query}" 
+            <SearchWord>
+              "{this.state.query}"
             </SearchWord>
-            <Link onClick={this.handleClick} style={{cursor: 'pointer'}}>Back to all reviews</Link> 
+            <Link onClick={this.handleClick} style={{cursor: 'pointer'}}>Back to all reviews</Link>
           </ReviewSearchContainer> : null
         }
         </div>
+        <AddButtonContainer>
+            <button className='add-button' style={{
+              borderColor: 'black',
+              cursor: 'pointer',
+              backgroundColor: '#0099f8',
+              color: 'white',
+              padding: '10px',
+              borderRadius: '6px',
+              fontSize: '16px',
+              borderWidth: '2px',
+            }} onClick={(e)=>{e.preventDefault(); style={backgroundColor: 'black'}}} >Add Review</button>
+          </AddButtonContainer>
         <ReviewList reviews={this.state.reviews} />
 
       </BodyContainer>
     )
   };
 };
+
+// const AddReview = styled.div`
+//   background-color: red;
+// `
+
+const AddButtonContainer = styled.div`
+  margin-left: auto;
+`;
+
 
 const BodyContainer = styled.div`
   display: flex;
