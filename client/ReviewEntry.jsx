@@ -5,32 +5,86 @@ var faker = require('faker');
 import styled from 'styled-components';
 
 
-var ReviewEntry = ({review}) => {
+class ReviewEntry extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+    display: 'flex',
+    }
+  }
+  toggleClassDelete () {
+    this.setState({
+      display: 'none',
+    })
+  }
+
+  render () {
+
     return (
-      <Wrapper>
+      <Wrapper style={{display: this.state.display}}>
+        <EditDeleteWrapper>
+
+          <DeleteReviewButtonContainer>
+            <button className='edit-button' style={{
+              borderColor: 'black',
+              cursor: 'pointer',
+              backgroundColor: 'grey',
+              color: 'white',
+              padding: '5px',
+              borderRadius: '6px',
+              fontSize: '12px',
+              borderWidth: '1px',
+              float: 'right',
+            }}
+            onClick={()=>{this.props.delete(this.props.review._id)},this.toggleClassDelete.bind(this)}
+            >Delete</button>
+          </DeleteReviewButtonContainer>
+          <EditReviewButtonContainer>
+            <button className='edit-button' style={{
+              borderColor: 'black',
+              cursor: 'pointer',
+              backgroundColor: 'grey',
+              color: 'white',
+              padding: '5px',
+              borderRadius: '6px',
+              fontSize: '12px',
+              borderWidth: '1px',
+              marginRight: '20px',
+              float: 'right',
+            }} >Edit</button>
+          </EditReviewButtonContainer>
+          </EditDeleteWrapper>
         <TopContainer>
           <ImageContainer>
             <Image className="profileImage" src={faker.image.avatar()}  height="42" width="42" />
           </ImageContainer>
           <NameAndDateContainer>
-            <UserNameContainer> { review.name } </UserNameContainer>
-            <PostDate> 
-            { faker.date.month() } { review.postDate } 
+            <UserNameContainer> { this.props.review.name } </UserNameContainer>
+            <PostDate>
+            { faker.date.month() } { this.props.review.postDate }
             </PostDate>
           </NameAndDateContainer>
         </TopContainer>
-        <Review> 
-          { review.review } 
+        <Review>
+          { this.props.review.review }
         </Review>
       </Wrapper>
     )
+  }
 }
+
+const EditDeleteWrapper = styled.div`
+`
+
+const EditReviewButtonContainer = styled.div`
+`
+const DeleteReviewButtonContainer = styled.div`
+`
 
 const Wrapper = styled.div`
   border-bottom: solid;
   border-bottom-color: #E8E8E8;
   border-bottom-width: 0.5px;
-  display: flex;
   flex-direction: column;
   padding: 22px 0;
 `;
@@ -42,7 +96,7 @@ const TopContainer = styled.div`
   padding: 10px 0;
 `;
 
-const Image = styled.img` 
+const Image = styled.img`
   border-radius: 50%;
 `;
 
