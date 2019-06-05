@@ -13,7 +13,12 @@ var ReviewList = (props) => {
       {
 
         props.reviews.map(review => {
-          return <ReviewEntry review={ review } key={ review.id } delete={props.delete.bind(this)}/>
+          return <ReviewEntry
+            review={ review }
+            key={ review.id }
+            delete={props.delete.bind(this)}
+            put={props.put.bind(this)}
+        />
         })
       }
     </ReviewContainer>

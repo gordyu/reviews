@@ -37,9 +37,10 @@ class ReviewEntry extends React.Component {
               float: 'right',
             }}
             onClick={()=>{this.props.delete(this.props.review._id)},this.toggleClassDelete.bind(this)}
-            >Delete</button>
+            > Delete
+            </button>
           </DeleteReviewButtonContainer>
-          <EditReviewButtonContainer>
+          {/* <EditReviewButtonContainer>
             <button className='edit-button' style={{
               borderColor: 'black',
               cursor: 'pointer',
@@ -52,8 +53,8 @@ class ReviewEntry extends React.Component {
               marginRight: '20px',
               float: 'right',
             }} >Edit</button>
-          </EditReviewButtonContainer>
-          </EditDeleteWrapper>
+          </EditReviewButtonContainer> */}
+        </EditDeleteWrapper>
         <TopContainer>
           <ImageContainer>
             <Image className="profileImage" src={faker.image.avatar()}  height="42" width="42" />
