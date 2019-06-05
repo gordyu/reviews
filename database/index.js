@@ -1,3 +1,5 @@
+//This is postgres
+
 const mongoose = require('mongoose');
 mongoose.set('useCreateIndex', true);
 mongoose.connect('mongodb://localhost/fetcher', { useNewUrlParser: true })
