@@ -57,13 +57,17 @@ class App extends React.Component {
 
 
    handleDelete(id) {
-
      fetch('http://localhost:3003/reviews/:id', {
-    method: 'DELETE',
-    body: JSON.stringify({_id: id})
+       method: 'DELETE',
+       body: JSON.stringify({_id: id})
      })
-    // .then(res => res)
-    // .then(res => console.log(res))
+  }
+
+  handlePut(id, text) {
+    fetch('http://localhost:3003/reviews/:id', {
+      method: 'PUT',
+      body: JSON.stringify({_id:id, review: text})
+    })
   }
 
   handleClick() {
@@ -73,7 +77,6 @@ class App extends React.Component {
   render () {
     return (
       <BodyContainer>
-
         <TopContainer>
           <ReviewTitle>
           {this.state.reviewsTotal.length} Reviews
@@ -110,7 +113,7 @@ class App extends React.Component {
           </ReviewSearchContainer> : null
         }
         </div>
-        <AddReviewContainer>
+        {/* <AddReviewContainer>
             <button className='add-button' style={{
               borderColor: 'black',
               cursor: 'pointer',
@@ -121,8 +124,8 @@ class App extends React.Component {
               fontSize: '16px',
               borderWidth: '2px',
             }} >Add Review</button>
-          </AddReviewContainer>
-        <ReviewList reviews={this.state.reviews} delete={this.handleDelete.bind(this)} />
+          </AddReviewContainer> */}
+        <ReviewList reviews={this.state.reviews} delete={this.handleDelete.bind(this)} put={this.handlePut.bind(this)} />
 
       </BodyContainer>
     )
@@ -133,9 +136,9 @@ class App extends React.Component {
 //   background-color: red;
 // `
 
-const AddReviewContainer = styled.div`
-  margin-left: auto;
-`;
+// const AddReviewContainer = styled.div`
+//   margin-left: auto;
+// `;
 
 
 const BodyContainer = styled.div`
