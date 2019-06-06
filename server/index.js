@@ -12,11 +12,62 @@ app.use(express.static(__dirname + '/../public'));
 app.use(cors());
 
 
-app.get('/reviews', db.getUsers)
-app.get('/reviews/:id', db.getUserById)
-app.post('/reviews', db.createUser)
-app.put('/reviews/:id', db.updateUser)
-app.delete('/reviews/:id', db.deleteUser)
+// app.get('/reviews', function (req, res) {
+
+//   db.getReviews ({}, function (err, result) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log(result)
+//       res.json(result);
+//       res.send(200)
+//     }
+//   })
+// })
+
+
+app.post('/reviews', (req, res) => {
+  db.createReview(req.body, (err, data) => {
+    if (err) {
+      console.log(err)
+      res.sendStatus(400);
+    } else {
+      res.status(201).json(data);
+    }
+  });
+});
+
+app.put('/reviews/:id', (req, res) => {
+  //console.log(req.params)
+  db.updateReview({_id:req.params.id}, req.body, (err, review) => {
+    if (review) {
+      res.status(200).json(review);
+    } else {
+
+      res.sendStatus(404);
+    }
+  });
+});
+
+app.delete('/reviews/:id', (req, res) => {
+
+  db.deleteReview(req.params._id, (err, result) => {
+    if (err) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+      console.log('Review Deleted')
+    }
+  });
+});
+
+app.get('/reviews/', function (req,res) {
+  db.getReviews()
+})
+// app.get('/reviews/:id', db.getUserById)
+// app.post('/reviews', db.createUser)
+// app.put('/reviews/:id', db.updateUser)
+// app.delete('/reviews/:id', db.deleteUser)
 
 // //get request to pull all of the review data onto the page
 // app.get('/reviews', function(req, res) {
@@ -87,7 +138,7 @@ app.delete('/reviews/:id', db.deleteUser)
 //   });
 // });
 
-let port = 3003;
+let port = process.env.PORT || 3003;
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);
