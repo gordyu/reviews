@@ -60,6 +60,7 @@
     "lodash": "^4.17.11",
     "mongodb": "^3.2.4",
     "mongoose": "^5.5.8",
+    "pg": "^7.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-paginate": "^6.3.0",
