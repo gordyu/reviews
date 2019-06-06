@@ -37,21 +37,20 @@ app.post('/reviews', (req, res) => {
   });
 });
 
-app.put('/reviews/:id', (req, res) => {
-  //console.log(req.params)
-  db.updateReview({_id:req.params.id}, req.body, (err, review) => {
-    if (review) {
-      res.status(200).json(review);
-    } else {
+// app.put('/reviews/:id', (req, res) => {
+//   db.updateReview({id:req.params.id}, req.body, (err, review) => {
+//     if (review) {
+//       res.status(200).json(review);
+//     } else {
 
-      res.sendStatus(404);
-    }
-  });
-});
+//       res.sendStatus(404);
+//     }
+//   });
+// });
 
 app.delete('/reviews/:id', (req, res) => {
 
-  db.deleteReview(req.params._id, (err, result) => {
+  db.deleteReview(req.params.id, (err, result) => {
     if (err) {
       res.sendStatus(404);
     } else {
@@ -64,6 +63,14 @@ app.delete('/reviews/:id', (req, res) => {
 app.get('/reviews/', function (req,res) {
   db.getReviews()
 })
+
+app.put('/reviews/:id', function (req, res){
+  db.updateReview(req, res)
+})
+
+// app.delete('/reviews/:id', function (req, res){
+//   db.deleteReview()
+// })
 // app.get('/reviews/:id', db.getUserById)
 // app.post('/reviews', db.createUser)
 // app.put('/reviews/:id', db.updateUser)

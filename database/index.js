@@ -16,11 +16,6 @@ client.connect((err) => {
     console.log('connected')
   }
 })
-// client.connect()
-//   .then(()=> {console.log('Successfully connected to database');})
-//   .then()
-//   .catch((err)=> {console.log(err);})
-//   .finally(() => client.end())
 
 
 // const createTables = () => {
@@ -41,34 +36,6 @@ client.connect((err) => {
 //       )`;
 
 
-//   client.query(queryText)
-//     .then((res) => {
-//       console.log(res, 'this comes from create DB');
-//       client.end();
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       client.end();
-//     });
-// }
-
-// const getReviews = function (req, res) {
-//   client.connect({}, function (err,client, done) {
-//     if (err) {
-//       return console.error('error fetching from pool', err);
-//     } else {
-
-//       client.query('SELECT * FROM reviews ORDER BY id ASC', function (error, results) {
-//         if (error) {
-//           throw error
-//         }
-//         console.log(results.rows)
-//       })
-//     }
-//   })
-// }
-
-
 const getReviews = function (req, res) {
   client.query('SELECT * FROM reviews ORDER BY id ASC')
   .then(res => console.log(res.rows))
@@ -76,42 +43,61 @@ const getReviews = function (req, res) {
 }
 
 const createReview = function (req, res) {
-  // const { imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating } = req.body
   client.query('INSERT INTO reviews (imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',  [req.imagePath, req.name, req.postDate, req.review, req.accuracyRating, req.communicationRating, req.cleanlinessRating, req.locationRating, req.checkinRating, req.valueRating])
     .then(res => {
      console.log(res.rows[0])
-  })
-  .catch(e => console.error(e.stack))
+    })
+    .catch(e => console.error(e.stack))
+}
 
+const deleteReview = function (req, res) {
+
+  const id = parseInt(req)
+  client.query('DELETE FROM reviews WHERE id = $1 RETURNING *', [id])
+  .then(res =>{
+    console.log(res)
+  })
+  .catch (e => { console.error(e.stack)})
+}
+
+  const updateReview = function (req, res) {
+  const id = parseInt(req.params.id)
+  client.query(
+    'UPDATE reviews SET imagePath = $1, name = $2, postDate = $3, review = $4, accuracyRating = $5, communicationRating = $6, cleanlinessRating = $7, locationRating = $8, checkinRating = $9, valueRating = $10  WHERE id = $11',
+    [req.body.imagePath, req.body.name, req.body.postDate, req.body.review, req.body.accuracyRating, req.body.communicationRating, req.body.cleanlinessRating, req.body.locationRating, req.body.checkinRating, req.body.valueRating, id])
+    .then(res => {
+      console.log(res, 'Updating successful')
+     })
+    .catch(e => console.error(e.stack))
 }
 
 
 
-// const createReview = function (req, res) {
-//   const { imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating } = req.body
-
-//   client.query('INSERT INTO reviews (imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *', [imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating], (error, result) => {
-//     if (error) {
-//       throw error
-//     }
-//     res.send(201).send(`User added with ID: ${result.insertId}`)
-//   })
-// }
 
 
 
+const getReviewsById = function (req, res) {
+  const id = parseInt(req.params.id)
+
+  client.query('SELECT * FROM reviews WHERE id = $1', [id], (error, results) => {
+    if (error) {
+      throw error
+    }
+    res.send(200).json(results.rows)
+  })
+}
 
 
-// const getReviewsById = function (req, res) {
-//   const id = parseInt(req.params.id)
 
-//   client.query('SELECT * FROM reviews WHERE id = $1', [id], (error, results) => {
-//     if (error) {
-//       throw error
-//     }
-//     res.send(200).json(results.rows)
-//   })
-// }
+
+
+module.exports = {
+   getReviews,
+   createReview,
+   getReviewsById,
+   updateReview,
+   deleteReview,
+}
 
 // const createReview = function (req, res) {
 //   const { imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating } = req.body
@@ -140,26 +126,20 @@ const createReview = function (req, res) {
 //   )
 // }
 
-// const deleteReview = function (req, res) {
-//   const id = parseInt(req.params.id)
+// const getReviews = function (req, res) {
+//   client.connect({}, function (err,client, done) {
+//     if (err) {
+//       return console.error('error fetching from pool', err);
+//     } else {
 
-//   client.query('DELETE FROM reviews WHERE id = $1', [id], (error, results) => {
-//     if (error) {
-//       throw error
+//       client.query('SELECT * FROM reviews ORDER BY id ASC', function (error, results) {
+//         if (error) {
+//           throw error
+//         }
+//         console.log(results.rows)
+//       })
 //     }
-//     res.send(200).send(`Review deleted with ID: ${id}`)
 //   })
-// }
-
-
-
-module.exports = {
-   getReviews,
-   createReview,
-}
-//   getReviewsById,
-//   updateReview,
-//   deleteReview,
 // }
 
 
