@@ -123,9 +123,8 @@ let randomRating = function () {
 
 let storageArr = [];
 //create array of messages data
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 100000; i++) {
     storageArr.push(new db.Review({
-      id: i,
       imagePath: 'placeholder',
       name: randomName(),
       postDate: 2019,
@@ -145,20 +144,24 @@ db.Review.deleteMany({}, (err) => {
     console.log(err);
   } else {
     console.log('database cleared');
-    db.Review.insertMany(storageArr, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('database seeded!')
-        db.Review.find({}, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            //console.log(result);
-          }
-        });
-      }
-    });
+    for (let i = 0; i < 10; i ++) {
+      db.Review.insertMany(storageArr, (err) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log('database seeded!')
+        }
+          // db.Review.find({}, (err, result) => {
+          //   if (err) {
+          //     console.log(err);
+          //   } else {
+          //     //console.log(result);
+          //   }
+          // });
+
+      });
+
+    }
   }
 });
 
