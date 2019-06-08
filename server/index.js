@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 let app = express();
-const {getReviewsById, getReviews, createReview} = require('../database/index');
+const {getReviewsById, getReviews, createReview, deleteReview, updateReview} = require('../database/index');
 var cors = require('cors')
 
 
@@ -47,27 +47,24 @@ app.post('/reviews', (req, res) => {
   });
 });
 
+app.delete('/reviews/:id', (req, res) => {
+
+  deleteReview(req.params.id, (err, result) => {
+    if (err) {
+      res.sendStatus(404);
+    } else {
+      res.sendStatus(204);
+      console.log('Review Deleted')
+    }
+  });
+});
+
+app.put('/reviews/:id', function (req, res){
+  updateReview(req, res)
+})
 
 
-// app.delete('/reviews/:id', (req, res) => {
 
-//   db.deleteReview(req.params.id, (err, result) => {
-//     if (err) {
-//       res.sendStatus(404);
-//     } else {
-//       res.sendStatus(204);
-//       console.log('Review Deleted')
-//     }
-//   });
-// });
-
-// app.get('/reviews/', function (req,res) {
-//   db.getReviews()
-// })
-
-// app.put('/reviews/:id', function (req, res){
-//   db.updateReview(req, res)
-// })
 
 
 
@@ -119,7 +116,7 @@ app.post('/reviews', (req, res) => {
 //   });
 // });
 
-let port = 3009;
+let port = process.env.PORT || 3003;
 
 app.listen(port, function() {
   console.log(`listening on port ${port}`);

@@ -11,6 +11,19 @@ client.connect(function (err) {
 });
 
 
+const deleteReview = function (req, res) {
+  const id = parseInt(req);
+  const query = 'DELETE FROM reviews WHERE id = 1';
+  client.execute(query, function (err, result) {
+    if (err ) {
+      console.log(err)
+    }
+    console.log(result);
+  });
+}
+
+
+
 
 const getReviewsById = function (req, res) {
   const id = parseInt(req)
@@ -32,8 +45,8 @@ const getReviews = function (req, res) {
 }
 
 const createReview = function (req, res) {
-  const query = 'INSERT INTO reviews (imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-  const params = [req.imagePath, req.name, req.postDate, req.review, req.accuracyRating, req.communicationRating, req.cleanlinessRating, req.locationRating, req.checkinRating, req.valueRating]
+  const query = 'INSERT INTO reviews (id, imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  const params = [req.id, req.imagePath, req.name, req.postDate, req.review, req.accuracyRating, req.communicationRating, req.cleanlinessRating, req.locationRating, req.checkinRating, req.valueRating]
   client.execute(query, params, { prepare: true }, function (err, result){
     if (err) {
       console.log(err)
@@ -43,6 +56,17 @@ const createReview = function (req, res) {
   })
 }
 
+  const updateReview = function (req, res) {
+  const id = parseInt(req.params.id)
+  const query = `UPDATE reviews SET imagePath = ?, name = ?, postDate = ?, review = ?, accuracyRating = ?, communicationRating = ?, cleanlinessRating = ?, locationRating = ?, checkinRating = ?, valueRating = ?  WHERE id = ?`;
+  const params = [req.body.imagePath, req.body.name, req.body.postDate, req.body.review, req.body.accuracyRating, req.body.communicationRating, req.body.cleanlinessRating, req.body.locationRating, req.body.checkinRating, req.body.valueRating, id]
+  client.execute(query, params,  { prepare: true },function (err, res) {
+    if (err) {
+      console.log (err)
+    }
+    console.log (res)
+  })
+}
 
 
 
@@ -50,8 +74,8 @@ const createReview = function (req, res) {
     getReviews,
     createReview,
     getReviewsById,
-//    updateReview,
-//    deleteReview,
+    updateReview,
+    deleteReview,
  }
 
 
@@ -69,26 +93,9 @@ const createReview = function (req, res) {
 
 
 
-// const deleteReview = function (req, res) {
 
-//   const id = parseInt(req)
-//   client.query('DELETE FROM reviews WHERE id = $1 RETURNING *', [id])
-//   .then(res =>{
-//     console.log(res)
-//   })
-//   .catch (e => { console.error(e.stack)})
-// }
 
-//   const updateReview = function (req, res) {
-//   const id = parseInt(req.params.id)
-//   client.query(
-//     'UPDATE reviews SET imagePath = $1, name = $2, postDate = $3, review = $4, accuracyRating = $5, communicationRating = $6, cleanlinessRating = $7, locationRating = $8, checkinRating = $9, valueRating = $10  WHERE id = $11',
-//     [req.body.imagePath, req.body.name, req.body.postDate, req.body.review, req.body.accuracyRating, req.body.communicationRating, req.body.cleanlinessRating, req.body.locationRating, req.body.checkinRating, req.body.valueRating, id])
-//     .then(res => {
-//       console.log(res, 'Updating successful')
-//      })
-//     .catch(e => console.error(e.stack))
-// }
+
 
 
 
