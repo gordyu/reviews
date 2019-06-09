@@ -165,3 +165,47 @@ db.Review.deleteMany({}, (err) => {
   }
 });
 
+
+
+// async function seedDB (outer, inner) {
+//   try{
+//     db.Review.deleteMany({}, (err) => {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log('database cleared');
+//       async function seeder () {
+//         let counter = 0;
+//         for (let j = 0; j < outer; j++) {
+//           let inputArr = [];
+//           for (let i = 0; i < inner; i++) {
+//             let obj = {
+//               id: counter,
+//               imagePath: 'placeholder',
+//               name: faker.name.firstName(),
+//               postDate: 2019,
+//               review: faker.lorem.paragraph(),
+//               accuracyRating: randomRating(),
+//               communicationRating: randomRating(),
+//               cleanlinessRating: randomRating(),
+//               locationRating: randomRating(),
+//               checkinRating: randomRating(),
+//               valueRating: randomRating()
+//             }
+//             inputArr.push(obj);
+//             counter++;
+//           }
+//           console.log('done');
+//           await db.Review.insertMany.insertMany(inputArr);
+//         }
+//       }
+//     }
+//     }
+//   )} catch (err) {
+//     console.log(err)
+//   }
+// }
+
+
+
+// seedDB(1000, 10000)
