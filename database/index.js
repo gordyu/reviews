@@ -1,7 +1,7 @@
 //This is postgres
 
-const {Client} = require('pg')
-const client = new Client({
+const {Pool} = require('pg')
+const pool = new Pool({
   user: 'ignacio',
   host: 'localhost',
   database: 'reviews',
@@ -9,7 +9,7 @@ const client = new Client({
   port: 5432,
 })
 
-client.connect((err) => {
+pool.connect((err) => {
   if (err) {
     console.error('connection error', err.stack)
   } else {
@@ -37,13 +37,13 @@ client.connect((err) => {
 
 
 const getReviews = function (req, res) {
-  client.query('SELECT * FROM reviews ORDER BY id ASC')
+  pool.query('SELECT * FROM reviews ORDER BY id ASC')
   .then(res => console.log(res.rows))
   .catch(e => console.error(e.stack))
 }
 
 const createReview = function (req, res) {
-  client.query('INSERT INTO reviews (imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',  [req.imagePath, req.name, req.postDate, req.review, req.accuracyRating, req.communicationRating, req.cleanlinessRating, req.locationRating, req.checkinRating, req.valueRating])
+  pool.query('INSERT INTO reviews (imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',  [req.imagePath, req.name, req.postDate, req.review, req.accuracyRating, req.communicationRating, req.cleanlinessRating, req.locationRating, req.checkinRating, req.valueRating])
     .then(res => {
      console.log(res.rows[0])
     })
@@ -53,7 +53,7 @@ const createReview = function (req, res) {
 const deleteReview = function (req, res) {
 
   const id = parseInt(req)
-  client.query('DELETE FROM reviews WHERE id = $1 RETURNING *', [id])
+  pool.query('DELETE FROM reviews WHERE id = $1 RETURNING *', [id])
   .then(res =>{
     console.log(res)
   })
@@ -62,7 +62,7 @@ const deleteReview = function (req, res) {
 
   const updateReview = function (req, res) {
   const id = parseInt(req.params.id)
-  client.query(
+  pool.query(
     'UPDATE reviews SET imagePath = $1, name = $2, postDate = $3, review = $4, accuracyRating = $5, communicationRating = $6, cleanlinessRating = $7, locationRating = $8, checkinRating = $9, valueRating = $10  WHERE id = $11',
     [req.body.imagePath, req.body.name, req.body.postDate, req.body.review, req.body.accuracyRating, req.body.communicationRating, req.body.cleanlinessRating, req.body.locationRating, req.body.checkinRating, req.body.valueRating, id])
     .then(res => {
@@ -79,7 +79,7 @@ const deleteReview = function (req, res) {
 const getReviewsById = function (req, res) {
   const id = parseInt(req.params.id)
 
-  client.query('SELECT * FROM reviews WHERE id = $1', [id], (error, results) => {
+  pool.query('SELECT * FROM reviews WHERE id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
