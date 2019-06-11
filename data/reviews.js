@@ -153,7 +153,7 @@ const entryObject = (i) => {
   let seedingObj = {
     imagePath: 'placeholder',
     name: faker.name.firstName(),
-    review: faker.lorem.paragraph(),
+    review: faker.lorem.sentence(),
     accuracyRating: Number(randomRating()),
     communicationRating: Number(randomRating()),
     cleanlinessRating: Number(randomRating()),
