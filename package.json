@@ -6,8 +6,7 @@
   "scripts": {
     "build": "webpack -d --watch",
     "start": "nodemon --ignore node_modules server",
-    "seed": "node ../Ja5mine-5ervice/data/reviews.js",
-    "test": "jest ../Ja5mine-5ervice/tests/front_end.js"
+    "seed": "node ./data/reviews.js",
   },
   "repository": {
     "type": "git",
@@ -61,6 +60,7 @@
     "mongodb": "^3.2.4",
     "mongoose": "^5.5.8",
     "pg": "^7.11.0",
+    "pg-promise": "^8.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-paginate": "^6.3.0",

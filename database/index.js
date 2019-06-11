@@ -43,7 +43,7 @@ const getReviews = function (req, res) {
 }
 
 const createReview = function (req, res) {
-  pool.query('INSERT INTO reviews (imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',  [req.imagePath, req.name, req.postDate, req.review, req.accuracyRating, req.communicationRating, req.cleanlinessRating, req.locationRating, req.checkinRating, req.valueRating])
+  pool.query('INSERT INTO reviews (imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING *',  [req.imagePath, req.name, req.review, req.accuracyRating, req.communicationRating, req.cleanlinessRating, req.locationRating, req.checkinRating, req.valueRating, req.postDate])
     .then(res => {
      console.log(res.rows[0])
     })
@@ -64,7 +64,7 @@ const deleteReview = function (req, res) {
   const id = parseInt(req.params.id)
   pool.query(
     'UPDATE reviews SET imagePath = $1, name = $2, postDate = $3, review = $4, accuracyRating = $5, communicationRating = $6, cleanlinessRating = $7, locationRating = $8, checkinRating = $9, valueRating = $10  WHERE id = $11',
-    [req.body.imagePath, req.body.name, req.body.postDate, req.body.review, req.body.accuracyRating, req.body.communicationRating, req.body.cleanlinessRating, req.body.locationRating, req.body.checkinRating, req.body.valueRating, id])
+    [req.body.imagePath, req.body.name,  req.body.review, req.body.accuracyRating, req.body.communicationRating, req.body.cleanlinessRating, req.body.locationRating, req.body.checkinRating, req.body.valueRating, req.body.postDate, id])
     .then(res => {
       console.log(res, 'Updating successful')
      })
@@ -88,7 +88,11 @@ const getReviewsById = function (req, res) {
 }
 
 
-
+const fileLoader = (table, filepath, callback) => {
+	pool.query(`COPY ${table} FROM '${filepath}';`, (err, resp) => {
+		callback(err, resp)
+	})
+}
 
 
 module.exports = {
@@ -97,6 +101,8 @@ module.exports = {
    getReviewsById,
    updateReview,
    deleteReview,
+   pool,
+   fileLoader
 }
 
 // const createReview = function (req, res) {
