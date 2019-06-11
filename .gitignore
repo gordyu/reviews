@@ -7,3 +7,5 @@ public/bundle.js
 ./data/SeedFile/database.tsv
 
 data/SeedFile
+
+/data/SeedFile/database.tsv
