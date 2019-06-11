@@ -18,22 +18,24 @@ pool.connect((err) => {
 })
 
 
-// const createTables = () => {
-//   const queryText =
-//     `CREATE TABLE IF NOT EXISTS
+// First in order to drop the table run
+// drop table reviews
+// then run
+//      CREATE TABLE IF NOT EXISTS
 //       reviews(
 //         id SERIAL PRIMARY KEY,
 //         imagePath VARCHAR(240) NOT NULL,
 //         name VARCHAR(70) NOT NULL,
-//         postDate TIMESTAMP,
 //         review VARCHAR(300) NOT NULL,
-//         accuracyRating INT NOT NULL,
-//         communicationRating INT NOT NULL,
-//         cleanlinessRating INT NOT NULL,
-//         locationRating INT NOT NULL,
-//         checkinRating INT NOT NULL,
-//         valueRating INT NOT NULL
-//       )`;
+//         accuracyRating VARCHAR (10) NOT NULL,
+//         communicationRating VARCHAR (10) NOT NULL,
+//         cleanlinessRating VARCHAR (10) NOT NULL,
+//         locationRating VARCHAR (10) NOT NULL,
+//         checkinRating VARCHAR (10) NOT NULL,
+//         valueRating VARCHAR (10) NOT NULL,
+//       postDate VARCHAR (20)
+//       )
+//
 
 
 const getReviews = function (req, res) {
