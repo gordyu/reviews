@@ -1,5 +1,10 @@
 var db = require('../database/index');
 const mongoose = require('mongoose');
+const faker = require ('faker');
+const fs = require('fs')
+const path = require('path')
+
+
 
 /*
 seed database in this file
@@ -121,44 +126,88 @@ let randomRating = function () {
   return roundedRating;
 }
 
-let storageArr = [];
-//create array of messages data
-  for (let i = 0; i < 12; i++) {
-    storageArr.push(new db.Review({
-      id: i,
-      imagePath: 'placeholder',
-      name: randomName(),
-      postDate: 2019,
-      review: randomReview(),
-      accuracyRating: randomRating(),
-      communicationRating: randomRating(),
-      cleanlinessRating: randomRating(),
-      locationRating: randomRating(),
-      checkinRating: randomRating(),
-      valueRating: randomRating()
-    }));
-};
+// let storageArr = [];
+// //create array of messages data
+//   for (let i = 0; i < 100000; i++) {
+//     storageArr.push(new db.Review({
+//       id: i,
+//       imagePath: 'placeholder',
+//       name: faker.name.firstName(),
+//       postDate: 2019,
+//       review: faker.lorem.paragraph(),
+//       accuracyRating: randomRating(),
+//       communicationRating: randomRating(),
+//       cleanlinessRating: randomRating(),
+//       locationRating: randomRating(),
+//       checkinRating: randomRating(),
+//       valueRating: randomRating()
+//     }));
+// };
 
-//deletes all reviews from the database and re-inserts new ones
-db.Review.deleteMany({}, (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log('database cleared');
-    db.Review.insertMany(storageArr, (err) => {
-      if (err) {
-        console.log(err);
-      } else {
-        console.log('database seeded!')
-        db.Review.find({}, (err, result) => {
-          if (err) {
-            console.log(err);
-          } else {
-            //console.log(result);
-          }
-        });
-      }
-    });
+
+const csvFile = path.join(__dirname, "./SeedFile/database.tsv");
+
+const totalEntries = 10000000
+
+const entryObject = (i) => {
+  let seedingObj = {
+    imagePath: 'placeholder',
+    name: faker.name.firstName(),
+    review: faker.lorem.paragraph(),
+    accuracyRating: Number(randomRating()),
+    communicationRating: Number(randomRating()),
+    cleanlinessRating: Number(randomRating()),
+    locationRating: Number(randomRating()),
+    checkinRating: Number(randomRating()),
+    valueRating: Number(randomRating()),
+    postDate: faker.date.month()
   }
-});
+  return seedingObj
+}
+
+// const fileLoader = (table, filepath, callback) => {
+// 	db.pool.query(`COPY ${table} FROM '${filepath}';`, (err, resp) => {
+// 		callback(err, resp)
+// 	})
+// }
+
+const seeder = function () {
+  fs.writeFile(csvFile, "", 'utf8', (err, data) => {
+    if (err) {
+      console.log(err)
+    } else {
+      fs.open(csvFile, 'r+', (err, fd) => {
+        if(err) {
+          console.log (err)
+        } else {
+          console.log('Process started at ' + Date())
+        }
+        const recursion = (n) => {
+          if(n>totalEntries) {
+            console.log('FileWrite completed at ' + Date())
+            return db.fileLoader('reviews', csvFile, (err, data) => {
+              if (err) {
+                console.error(err)
+              } else {
+                console.log('Entries loaded into database succesfully at ' + Date())
+                return
+              }
+              })
+          }
+          var {imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating} = entryObject(n);
+					var inputString = `${n}\t${imagePath}\t${name}\t${review}\t${accuracyRating}\t${communicationRating}\t${cleanlinessRating}\t${locationRating}\t${checkinRating}\t${valueRating}\t${postDate}\n`
+					fs.write(fd, inputString, (err) => {
+						if(err) console.error(err)
+            recursion(n+1)
+          })
+        }
+        recursion(0)
+      })
+    }
+  })
+}
+
+seeder()
+
+
 
