@@ -147,7 +147,7 @@ let randomRating = function () {
 
 const csvFile = path.join(__dirname, "./SeedFile/database.tsv");
 
-const totalEntries = 10000000
+const totalEntries = 100
 
 const entryObject = (i) => {
   let seedingObj = {
@@ -171,28 +171,22 @@ const entryObject = (i) => {
 // 	})
 // }
 
-const seeder = function () {
+const csvCreator = function () {
   fs.writeFile(csvFile, "", 'utf8', (err, data) => {
     if (err) {
-      console.log(err)
+      console.log(err);
+      return;
     } else {
       fs.open(csvFile, 'r+', (err, fd) => {
         if(err) {
-          console.log (err)
+          console.log (err, 'error trying to open the document')
         } else {
           console.log('Process started at ' + Date())
         }
         const recursion = (n) => {
           if(n>totalEntries) {
             console.log('FileWrite completed at ' + Date())
-            return db.fileLoader('reviews', csvFile, (err, data) => {
-              if (err) {
-                console.error(err)
-              } else {
-                console.log('Entries loaded into database succesfully at ' + Date())
-                return
-              }
-              })
+            return;
           }
           var {imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating} = entryObject(n);
 					var inputString = `${n}\t${imagePath}\t${name}\t${review}\t${accuracyRating}\t${communicationRating}\t${cleanlinessRating}\t${locationRating}\t${checkinRating}\t${valueRating}\t${postDate}\n`
@@ -207,6 +201,6 @@ const seeder = function () {
   })
 }
 
-seeder()
+csvCreator()
 
 
