@@ -22,7 +22,7 @@
 
 > This service requires a number of different packages listed in the package.json
 > based on each one, there are specifc requirements for proper styling and syntax (reading documentation for ones you're unfamiliar with are recommended)
-> After installing the packages- running the script 'npm run build' and 'npm start' are necessary in order to run the server and webpack build 
+> After installing the packages- running the script 'npm run build' and 'npm start' are necessary in order to run the server and webpack build
 > The webpack.config.js file should transpile the es6 syntax (using babel) from the client directory files into file 'bundle.js' that is imported into the index.html file within the public directory
 
 ## Requirements
@@ -42,4 +42,33 @@ From within the root directory:
 npm install -g webpack
 npm install
 ```
+
+
+To Run the service:
+
+npm run start
+
+To create a seeding file and upload it to the Database:
+
+npm run seed
+
+Make sure that you have previously created the table in postgres and that you have started postgres
+
+This command should be executed in the cqlsh terminal to create the table
+
+CREATE TABLE reviews(
+id int PRIMARY KEY,
+imagePath text,
+name text,
+postDate text,
+review text,
+accuracyRating text,
+communicationRating text,
+cleanlinessRating text,
+locationRating text,
+checkinRating text,
+valueRating text,
+);
+
+
 
