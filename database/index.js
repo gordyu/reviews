@@ -1,5 +1,3 @@
-//This is postgres
-
 const {Pool} = require('pg')
 const pool = new Pool({
   user: 'ignacio',
@@ -17,31 +15,34 @@ pool.connect((err) => {
   }
 })
 
-
 // First in order to drop the table run
 // drop table reviews
 // then run
-//      CREATE TABLE IF NOT EXISTS
-//       reviews(
-//         id SERIAL PRIMARY KEY,
-//         imagePath VARCHAR(240) NOT NULL,
-//         name VARCHAR(70) NOT NULL,
-//         review VARCHAR(300) NOT NULL,
-//         accuracyRating VARCHAR (10) NOT NULL,
-//         communicationRating VARCHAR (10) NOT NULL,
-//         cleanlinessRating VARCHAR (10) NOT NULL,
-//         locationRating VARCHAR (10) NOT NULL,
-//         checkinRating VARCHAR (10) NOT NULL,
-//         valueRating VARCHAR (10) NOT NULL,
-//       postDate VARCHAR (20)
-//       )
-//
+// CREATE TABLE IF NOT EXISTS
+// reviews(
+//   id SERIAL PRIMARY KEY,
+//   imagePath VARCHAR(240) NOT NULL,
+//   name VARCHAR(70) NOT NULL,
+//   review VARCHAR(300) NOT NULL,
+//   accuracyRating DECIMAL (4,3) NOT NULL,
+//   communicationRating DECIMAL (4,3) NOT NULL,
+//   cleanlinessRating DECIMAL (4,3) NOT NULL,
+//   locationRating DECIMAL (4,3) NOT NULL,
+//   checkinRating DECIMAL (4,3) NOT NULL,
+//   valueRating DECIMAL (4,3) NOT NULL,
+// postDate VARCHAR (20)
+// );
 
 
 const getReviews = function (req, res) {
-  pool.query('SELECT * FROM reviews ORDER BY id ASC')
-  .then(res => console.log(res.rows))
-  .catch(e => console.error(e.stack))
+   pool.query('SELECT * FROM reviews ORDER BY id ASC fetch first 12 rows only', (error, results)=> {
+     if (error) {
+       throw error
+     }
+  //  console.log( res)
+     res.json(results.rows)
+   })
+  //console.log(results.rows)
 }
 
 const createReview = function (req, res) {
@@ -73,14 +74,9 @@ const deleteReview = function (req, res) {
     .catch(e => console.error(e.stack))
 }
 
-
-
-
-
-
 const getReviewsById = function (req, res) {
   const id = parseInt(req.params.id)
-  console.log(Date.now())
+  console.log(Date())
   var startTime = Date.now();
 
   pool.query('SELECT * FROM reviews WHERE id = $1', [id], (error, results) => {
@@ -88,7 +84,7 @@ const getReviewsById = function (req, res) {
       throw error
     }
     console.log(Date.now()- startTime)
-    console.log(Date.now())
+    console.log(Date())
     console.log(results.rows)
     res.json(results.rows)
   })
@@ -111,103 +107,3 @@ module.exports = {
    pool,
    fileLoader
 }
-
-// const createReview = function (req, res) {
-//   const { imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating } = req.body
-
-//   client.query('INSERT INTO reviews (imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)', [imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating], (error, result) => {
-//     if (error) {
-//       throw error
-//     }
-//     res.send(201).send(`User added with ID: ${result.insertId}`)
-//   })
-// }
-
-// const updateReview = function (req, res) {
-//   const id = parseInt(req.params.id)
-//   const { imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating } = req.body
-
-//   client.query(
-//     'UPDATE reviews SET imagePath = $1, name = $2, postDate = $3, review = $4, accuracyRating = $5, communicationRating = $6, cleanlinessRating = $7, locationRating = $8, checkinRating = $9, valueRating = $10  WHERE id = $3',
-//     [imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating, id],
-//     (error, results) => {
-//       if (error) {
-//         throw error
-//       }
-//       res.status(200).send(`Review modified with ID: ${id}`)
-//     }
-//   )
-// }
-
-// const getReviews = function (req, res) {
-//   client.connect({}, function (err,client, done) {
-//     if (err) {
-//       return console.error('error fetching from pool', err);
-//     } else {
-
-//       client.query('SELECT * FROM reviews ORDER BY id ASC', function (error, results) {
-//         if (error) {
-//           throw error
-//         }
-//         console.log(results.rows)
-//       })
-//     }
-//   })
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const mongoose = require('mongoose');
-// mongoose.set('useCreateIndex', true);
-// mongoose.connect('mongodb://localhost/fetcher', { useNewUrlParser: true })
-//         .then(() => console.log('MongoDB connected...'))
-//         .catch(err => console.log('error'));
-
-// let reviewSchema = mongoose.Schema({
-//   id: {type: Number, required: true, unique: true},
-//   imagePath: {type: String, required: true},
-//   name: {type: String, required: true},
-//   postDate: {type: Number, required: true},
-//   review: {type: String, required: true},
-//   accuracyRating: {type: Number, required: true},
-//   communicationRating: {type: Number, required: true},
-//   cleanlinessRating: {type: Number, required: true},
-//   locationRating: {type: Number, required: true},
-//   checkinRating: {type: Number, required: true},
-//   valueRating: {type: Number, required: true}
-// });
-
-// let Review = mongoose.model('Review', reviewSchema);
-
-
-// let save = (review) => {
-//   //review =JSON.parse(review);
-//   console.log(typeof review);
-//   let newReview = new Review({
-//     imagePath: review.imagePath,
-//     name:review.name,
-//     postDate: review.postDate,
-//     review: review.review,
-//     accuracyRating: review.accuracyRating,
-//     communicationRating: reciew.communicationRating,
-//     cleanlinessRating: review.cleanlinessRating,
-//     locationRating: review.locationRating,
-//     checkinRating: review.checkinRating,
-//     valueRating: review.valueRating,
-//   })
-// }
-
-
-// module.exports.save = save;
-// module.exports.Review = Review;
