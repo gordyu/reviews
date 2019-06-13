@@ -64,6 +64,10 @@ app.get('/reviews/', function (req,res) {
   db.getReviews()
 })
 
+app.get('/reviews/:id', function (req,res) {
+  db.getReviewsById(req, res)
+})
+
 app.put('/reviews/:id', function (req, res){
   db.updateReview(req, res)
 })
