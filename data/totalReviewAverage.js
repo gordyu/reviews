@@ -15,12 +15,12 @@ var totalReviewAverage = function (reviewsList) {
   };
 
   reviewsList.map(review => {
-    totalReviewAverage.accuracy += review.accuracyRating;
-    totalReviewAverage.communication += review.communicationRating;
-    totalReviewAverage.cleanliness += review.cleanlinessRating;
-    totalReviewAverage.location += review.locationRating;
-    totalReviewAverage.checkin += review.checkinRating;
-    totalReviewAverage.value += review.valueRating;
+    totalReviewAverage.accuracy += Number(review.accuracyrating);
+    totalReviewAverage.communication += Number(review.communicationrating);
+    totalReviewAverage.cleanliness += Number(review.cleanlinessrating);
+    totalReviewAverage.location += Number(review.locationrating);
+    totalReviewAverage.checkin += Number(review.checkinrating);
+    totalReviewAverage.value += Number(review.valuerating);
   });
   for (var key in totalReviewAverage) {
     totalReviewAverage[key] = (totalReviewAverage[key] / reviewsList.length).toFixed(3);
