@@ -80,12 +80,17 @@ const deleteReview = function (req, res) {
 
 const getReviewsById = function (req, res) {
   const id = parseInt(req.params.id)
+  console.log(Date.now())
+  var startTime = Date.now();
 
   pool.query('SELECT * FROM reviews WHERE id = $1', [id], (error, results) => {
     if (error) {
       throw error
     }
-    res.send(200).json(results.rows)
+    console.log(Date.now()- startTime)
+    console.log(Date.now())
+    console.log(results.rows)
+    res.json(results.rows)
   })
 }
 

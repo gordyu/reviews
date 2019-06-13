@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack -d --watch",
-    "start": "nodemon --ignore node_modules server",
-    "seed": "node ./data/reviews.js",
+    "start": "nodemon ./server/index.js",
+    "seed": "node ./data/reviews.js"
   },
   "repository": {
     "type": "git",
