@@ -25,10 +25,12 @@ app.get('/reviews', function(req, res) {
 
 // Read one review
 app.get('/reviews/:id', (req, res) => {
-
+  // var startTime = Date.now();
   getReviewsById(req.params.id, (err, result) => {
     if (result) {
+      // console.log(Date.now()- startTime)
       res.status(200).json(result);
+
     } else {
       res.sendStatus(404);
     }

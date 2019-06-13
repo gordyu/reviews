@@ -26,9 +26,13 @@ const deleteReview = function (req, res) {
 
 
 const getReviewsById = function (req, res) {
+  console.log(Date.now())
+  var startTime = Date.now();
   const id = parseInt(req)
   const query = `SELECT * FROM reviews WHERE id = ${id}`;
   client.execute(query, function (err, result) {
+    console.log(Date.now()- startTime)
+    console.log(Date.now())
    console.log(result);
  });
 }

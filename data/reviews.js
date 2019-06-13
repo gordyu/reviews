@@ -145,25 +145,27 @@ let randomRating = function () {
 // };
 
 
-const csvFile = path.join(__dirname, "./SeedFile/database.tsv");
+const csvFile = path.join(__dirname, "./SeedFile/cassdatafile.tsv");
 
-const totalEntries = 100
+const totalEntries = 10000000
 
 const entryObject = (i) => {
   let seedingObj = {
-    imagePath: 'placeholder',
-    name: faker.name.firstName(),
-    review: faker.lorem.paragraph(),
     accuracyRating: Number(randomRating()),
-    communicationRating: Number(randomRating()),
-    cleanlinessRating: Number(randomRating()),
-    locationRating: Number(randomRating()),
     checkinRating: Number(randomRating()),
-    valueRating: Number(randomRating()),
-    postDate: faker.date.month()
+    cleanlinessRating: Number(randomRating()),
+    communicationRating: Number(randomRating()),
+    imagePath: 'placeholder',
+    locationRating: Number(randomRating()),
+    name: faker.name.firstName(),
+    postDate: faker.date.month(),
+    review: faker.lorem.paragraph(),
+    valueRating: Number(randomRating())
   }
   return seedingObj
 }
+
+
 
 // const fileLoader = (table, filepath, callback) => {
 // 	db.pool.query(`COPY ${table} FROM '${filepath}';`, (err, resp) => {
@@ -185,11 +187,13 @@ const csvCreator = function () {
         }
         const recursion = (n) => {
           if(n>totalEntries) {
+            console.log(n)
             console.log('FileWrite completed at ' + Date())
             return;
           }
-          var {imagePath, name, postDate, review, accuracyRating, communicationRating, cleanlinessRating, locationRating, checkinRating, valueRating} = entryObject(n);
-					var inputString = `${n}\t${imagePath}\t${name}\t${review}\t${accuracyRating}\t${communicationRating}\t${cleanlinessRating}\t${locationRating}\t${checkinRating}\t${valueRating}\t${postDate}\n`
+          var {accuracyRating, checkinRating, cleanlinessRating, communicationRating, imagePath, locationRating, name,
+            postDate, review, valueRating} = entryObject(n);
+					var inputString = `${n}\t${accuracyRating}\t${checkinRating}\t${cleanlinessRating}\t${communicationRating}\t${imagePath}\t${locationRating}\t${name}\t${postDate}\t${review}\t${valueRating}\n`
 					fs.write(fd, inputString, (err) => {
 						if(err) console.error(err)
             recursion(n+1)
