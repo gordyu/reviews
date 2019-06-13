@@ -3,7 +3,7 @@ var reviewAverages = function (reviewsList) {
   if (reviewsList === [] || reviewsList.length < 1 || reviewsList === undefined) {
     return 0;
   }
-  
+
   var reviewAverages = {
     accuracy: 0,
     communication: 0,
@@ -14,12 +14,12 @@ var reviewAverages = function (reviewsList) {
   };
 
   reviewsList.map(review => {
-    reviewAverages.accuracy += review.accuracyRating;
-    reviewAverages.communication += review.communicationRating;
-    reviewAverages.cleanliness += review.cleanlinessRating;
-    reviewAverages.location += review.locationRating;
-    reviewAverages.checkin += review.checkinRating;
-    reviewAverages.value += review.valueRating;
+    reviewAverages.accuracy += Number(review.accuracyrating);
+    reviewAverages.communication += Number(review.communicationrating);
+    reviewAverages.cleanliness += Number(review.cleanlinessrating);
+    reviewAverages.location += Number(review.locationrating);
+    reviewAverages.checkin += Number(review.checkinrating);
+    reviewAverages.value += Number(review.valuerating);
   });
   for (var key in reviewAverages) {
     reviewAverages[key] = (reviewAverages[key] / reviewsList.length).toFixed(3);
