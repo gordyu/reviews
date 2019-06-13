@@ -75,6 +75,7 @@ class App extends React.Component {
   }
 
   render () {
+
     return (
       <BodyContainer>
         <TopContainer>
@@ -82,7 +83,9 @@ class App extends React.Component {
           {this.state.reviewsTotal.length} Reviews
           </ReviewTitle>
           <MainReviewStarContainer>
+
           <StarRatings
+
               rating={totalReviewAverage(this.state.reviewsTotal)}
               starRatedColor='rgb(0, 125, 140)'
               numberOfStars={5}
