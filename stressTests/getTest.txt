@@ -1,0 +1,32 @@
+import http from "k6/http";
+import { check, sleep } from "k6";
+export let options = {
+  vus: 10,
+  duration: "10m"
+};
+
+export default function() {
+  let res = http.get("http://localhost:3003/reviews");
+  check(res, {
+    "success": (r) => r.status == 200
+  });
+};
+
+  ✗ success
+     ↳  99% — ✓ 874402 / ✗ 988
+
+    checks.....................: 99.88% ✓ 874392 ✗ 988
+    data_received..............: 3.2 GB 5.3 MB/s
+    data_sent..................: 76 MB  127 kB/s
+    http_req_blocked...........: avg=23.58µs min=0s       med=2µs    max=1.91s    p(90)=2µs    p(95)=2µs
+    http_req_connecting........: avg=21.88µs min=0s       med=0s     max=1.91s    p(90)=0s     p(95)=0s
+    http_req_duration..........: avg=6.65ms  min=0s       med=5.93ms max=132.47ms p(90)=9.29ms p(95)=10.89ms
+    http_req_receiving.........: avg=19.32µs min=0s       med=16µs   max=3.69ms   p(90)=31µs   p(95)=36µs
+    http_req_sending...........: avg=9.55µs  min=0s       med=8µs    max=2.04ms   p(90)=12µs   p(95)=21µs
+    http_req_tls_handshaking...: avg=0s      min=0s       med=0s     max=0s       p(90)=0s     p(95)=0s
+    http_req_waiting...........: avg=6.62ms  min=0s       med=5.9ms  max=132.43ms p(90)=9.26ms p(95)=10.86ms
+    http_reqs..................: 875380 1458.966184/s
+    iteration_duration.........: avg=6.84ms  min=186.68µs med=6.02ms max=1.97s    p(90)=9.41ms p(95)=11.01ms
+    iterations.................: 875380 1458.966184/s
+    vus........................: 10     min=10   max=10
+    vus_max....................: 10     min=10   max=10

@@ -5,10 +5,6 @@ export let options = {
   duration: "10m"
 };
 
-// export default function() {
-//   let res = http.get("http://www.localhost:3003/reviews/133445");
-
-// };
 export default function() {
   let res = http.get("http://localhost:3003/reviews");
   check(res, {
