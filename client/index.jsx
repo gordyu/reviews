@@ -252,4 +252,4 @@ const PaginationContainer = styled.div`
   padding: 10px 0;
 `;
 
-ReactDOM.render(<App perPage={8}/>, document.getElementById('reviews'));
+ReactDOM.render(<App perPage={8}/>, document.getElementById('cis-app'));
